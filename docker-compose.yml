@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: .
+    container_name: vue-app-container
+    ports:
+      - "8081:80"
+    restart: always
