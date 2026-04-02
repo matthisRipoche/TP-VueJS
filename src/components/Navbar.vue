@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 </script>
 
 <template>
-  <header class="navbar-header">
+  <header class="navbar-header bg-white">
     <div class="navbar-container">
       
       <div class="navbar-brand">
@@ -39,6 +39,12 @@ import { Button } from "@/components/ui/button"
             </MenubarTrigger>
           </MenubarMenu>
 
+          <MenubarMenu>
+            <MenubarTrigger as-child class="menu-trigger">
+              <RouterLink to="/results">Résultats</RouterLink>
+            </MenubarTrigger>
+          </MenubarMenu>
+
         </Menubar>
       </div>
 
@@ -53,84 +59,84 @@ import { Button } from "@/components/ui/button"
 </template>
 
 <style scoped>
-header {
+  header {
     width: 100%;
-}
+  }
 
-.navbar-container {
+  .navbar-container {
     width: 100%;
-}
-.navbar-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  width: 100%;
-  border-bottom: 1px solid var(--border, #e5e7eb);
-}
+  }
+  .navbar-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+  }
 
-.navbar-container {
-  display: flex;
-  height: 4rem;
-  max-width: 1400px;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
+  .navbar-container {
+    display: flex;
+    height: 4rem;
+    max-width: 1400px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-}
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+  }
 
-.brand-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-}
+  .brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
 
-.brand-text {
-  font-weight: bold;
-  font-size: 1.125rem;
-}
-
-.navbar-menu {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.custom-menubar {
-  border: none;
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.menu-trigger {
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-/* Responsive hiding */
-@media (max-width: 639px) {
   .brand-text {
-    display: none;
+    font-weight: bold;
+    font-size: 1.125rem;
   }
-  .btn-login {
-    display: none;
-  }
-}
 
-@media (max-width: 768px) {
   .navbar-menu {
-    display: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
   }
-}
+
+  .custom-menubar {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .menu-trigger {
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Responsive hiding */
+  @media (max-width: 639px) {
+    .brand-text {
+      display: none;
+    }
+    .btn-login {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navbar-menu {
+      display: none;
+    }
+  }
 </style>
