@@ -1,24 +1,5 @@
 # tp-vuejs
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
 ## Project Setup
 
 ```sh
@@ -51,3 +32,26 @@ docker-compose up --build -d
 ```sh
 docker-compose down
 ```
+
+## Tâches
+
+- [x] Créer son propre composant navBar en .vue pour avoir plusieurs "pages".
+- [ ] Utiliser une bibliotèque de composants (comparatif)
+- [ ] Creer un formulaire sur plusieurs étapes, avec possibilité de revenir sur l'étape en cours.
+- [ ] Installer une transition entre les pages.
+- [ ] Utiliser votre API avec des appels REST
+- [ ] Utiliser un environnement de test.
+- [x] Mise en production (avec CI/CD) sur votre VPS.
+
+Votre application doit utiliser des ressources internes :
+- [ ] Stokage interne
+- [ ] Notification
+- [ ] nombre d'alerte
+- [ ] Partage
+- [ ] Contact Picker. demo
+- [ ] GeoLocalisation
+- [ ] Touch event
+
+Voici quelques consignes supplémentaire non-obligatoires, juste pour s'amuser
+
+- [x] Intégrer le tout dans un docker.
