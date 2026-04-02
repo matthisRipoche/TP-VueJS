@@ -33,6 +33,12 @@ import { Button } from "@/components/ui/button"
             </MenubarTrigger>
           </MenubarMenu>
 
+          <MenubarMenu>
+            <MenubarTrigger as-child class="menu-trigger">
+              <RouterLink to="/form">Formulaire</RouterLink>
+            </MenubarTrigger>
+          </MenubarMenu>
+
         </Menubar>
       </div>
 

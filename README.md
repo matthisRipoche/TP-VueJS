@@ -36,7 +36,7 @@ docker-compose down
 ## Tâches
 
 - [x] Créer son propre composant navBar en .vue pour avoir plusieurs "pages".
-- [ ] Utiliser une bibliotèque de composants (comparatif)
+- [x] Utiliser une bibliotèque de composants (comparatif)
 - [ ] Creer un formulaire sur plusieurs étapes, avec possibilité de revenir sur l'étape en cours.
 - [ ] Installer une transition entre les pages.
 - [ ] Utiliser votre API avec des appels REST
