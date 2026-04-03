@@ -56,4 +56,19 @@ describe('TicketForm.vue', () => {
     
     expect(wrapper.emitted()).toHaveProperty('submit')
   })
+
+  it('disables buttons and shows saving state when isSubmitting is true', async () => {
+    // Navigate to step 3
+    await wrapper.find('button.bg-black').trigger('click')
+    await wrapper.find('button.bg-black').trigger('click')
+    
+    await wrapper.setProps({ isSubmitting: true })
+    
+    const confirmButton = wrapper.find('button.bg-black')
+    expect(confirmButton.element.disabled).toBe(true)
+    expect(confirmButton.text()).toContain('Saving...')
+    
+    const backButton = wrapper.find('button.font-bold')
+    expect(backButton.element.disabled).toBe(true)
+  })
 })

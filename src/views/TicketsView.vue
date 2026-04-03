@@ -24,13 +24,16 @@ const isLoading = ref(true)
 const isSubmitting = ref(false)
 const isDialogOpen = ref(false)
 const editingItem = ref(null)
+const errorMsg = ref('')
 
 const loadResults = async () => {
   isLoading.value = true
+  errorMsg.value = ''
   try {
     results.value = await ticketService.getAllTickets()
   } catch (error) {
     console.error("Load error:", error)
+    errorMsg.value = 'Failed to load tickets. Please check your API connection.'
   } finally {
     isLoading.value = false
   }
@@ -48,6 +51,7 @@ const openEditDialog = (item) => {
 
 const handleFormSubmit = async (formData) => {
   isSubmitting.value = true
+  errorMsg.value = ''
   try {
     if (editingItem.value) {
       await ticketService.updateTicket(editingItem.value.id, formData)
@@ -58,6 +62,7 @@ const handleFormSubmit = async (formData) => {
     await loadResults()
   } catch (error) {
     console.error("Save error:", error)
+    errorMsg.value = 'Failed to save ticket. Please try again.'
   } finally {
     isSubmitting.value = false
   }
@@ -120,6 +125,11 @@ onMounted(() => {
           <Trash2 class="size-5" />
         </Button>
       </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div v-if="errorMsg" class="bg-destructive/10 border-2 border-destructive p-4 rounded-lg text-destructive font-bold animate-in fade-in slide-in-from-top-2">
+      {{ errorMsg }}
     </div>
 
     <div v-if="isLoading" class="flex flex-col items-center justify-center py-20">
