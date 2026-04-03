@@ -88,22 +88,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="container max-w-none py-12 space-y-8">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <main class="container max-w-none px-4 sm:px-8 py-8 md:py-12 space-y-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
       <div class="space-y-1">
-        <h1 class="text-4xl font-black uppercase tracking-tighter">Support Tickets</h1>
-        <p class="text-muted-foreground text-lg">Manage your support tickets in real-time.</p>
+        <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter">Support Tickets</h1>
+        <p class="text-muted-foreground text-base md:text-lg font-medium">Manage your support tickets in real-time.</p>
       </div>
       
-      <div class="flex gap-3">
+      <div class="flex w-full sm:w-auto gap-3">
         <Dialog v-model:open="isDialogOpen">
           <DialogTrigger as-child>
-            <Button @click="openCreateDialog" class="bg-black text-white hover:bg-black/80 font-bold px-6 h-12">
+            <Button @click="openCreateDialog" class="flex-1 sm:flex-none bg-black text-white hover:bg-black/80 font-bold px-6 h-12">
               <Plus class="mr-2 size-5" />
               New Ticket
             </Button>
           </DialogTrigger>
-          <DialogContent class="sm:max-w-[500px] border-4">
+          <DialogContent class="w-[95vw] sm:max-w-[500px] border-4">
             <DialogHeader>
               <DialogTitle class="text-2xl font-black uppercase">
                 {{ editingItem ? 'Edit Ticket' : 'Create Ticket' }}
@@ -121,7 +121,7 @@ onMounted(() => {
           </DialogContent>
         </Dialog>
 
-        <Button variant="destructive" @click="clearResults" class="font-bold h-12" v-if="results.length > 0">
+        <Button variant="destructive" @click="clearResults" class="h-12 w-12 shrink-0 font-bold" v-if="results.length > 0">
           <Trash2 class="size-5" />
         </Button>
       </div>
@@ -138,15 +138,15 @@ onMounted(() => {
     </div>
 
     <div v-else-if="results.length === 0" class="flex flex-col items-center justify-center py-20 border-4 border-dashed rounded-xl">
-      <p class="text-xl font-bold text-muted-foreground">No tickets found.</p>
+      <p class="text-xl font-bold text-muted-foreground text-center px-4">No tickets found.</p>
       <Button variant="link" @click="openCreateDialog" class="mt-2 text-black font-bold">
         Create the first ticket now
       </Button>
     </div>
 
-    <div v-else class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div v-else class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <Card v-for="item in results" :key="item.id" class="border-2 shadow-none hover:border-black transition-all relative group overflow-hidden">
-        <div class="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        <div class="absolute top-2 right-2 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity z-10">
           <Button 
             variant="ghost" 
             size="icon" 
