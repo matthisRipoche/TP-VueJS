@@ -10,9 +10,7 @@ const apiClient = axios.create({
   },
 })
 
-// Tu peux ajouter des intercepteurs ici pour les tokens ou les logs
 apiClient.interceptors.request.use((config) => {
-  // console.log('Envoi de la requête à :', config.url)
   return config
 })
 
