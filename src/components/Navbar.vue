@@ -23,37 +23,17 @@ import { Button } from "@/components/ui/button"
           
           <MenubarMenu>
             <MenubarTrigger as-child class="menu-trigger">
-              <RouterLink to="/">Accueil</RouterLink>
+              <RouterLink to="/">Home</RouterLink>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger as-child class="menu-trigger">
-              <RouterLink to="/about">À propos</RouterLink>
+              <RouterLink to="/tickets">Tickets</RouterLink>
             </MenubarTrigger>
           </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger as-child class="menu-trigger">
-              <RouterLink to="/form">Formulaire</RouterLink>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger as-child class="menu-trigger">
-              <RouterLink to="/results">Résultats</RouterLink>
-            </MenubarTrigger>
-          </MenubarMenu>
-
         </Menubar>
       </div>
-
-      <!-- Call to Action Buttons -->
-      <div class="navbar-actions">
-        <Button variant="ghost" class="btn-login">Connexion</Button>
-        <Button class="btn-signup">S'inscrire</Button>
-      </div>
-
     </div>
   </header>
 </template>
@@ -71,7 +51,7 @@ import { Button } from "@/components/ui/button"
     top: 0;
     z-index: 50;
     width: 100%;
-    border-bottom: 1px solid var(--border, #e5e7eb);
+    border-bottom: 2px solid black;
   }
 
   .navbar-container {
@@ -97,8 +77,10 @@ import { Button } from "@/components/ui/button"
   }
 
   .brand-text {
-    font-weight: bold;
-    font-size: 1.125rem;
+    font-weight: 900;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
   }
 
   .navbar-menu {
@@ -115,23 +97,16 @@ import { Button } from "@/components/ui/button"
 
   .menu-trigger {
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
   }
 
   .navbar-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-  }
-
-  /* Responsive hiding */
-  @media (max-width: 639px) {
-    .brand-text {
-      display: none;
-    }
-    .btn-login {
-      display: none;
-    }
   }
 
   @media (max-width: 768px) {
