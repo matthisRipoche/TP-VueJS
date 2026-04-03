@@ -37,8 +37,8 @@ docker-compose down
 
 - [x] Créer son propre composant navBar en .vue pour avoir plusieurs "pages".
 - [x] Utiliser une bibliotèque de composants (comparatif)
-- [ ] Creer un formulaire sur plusieurs étapes, avec possibilité de revenir sur l'étape en cours.
-- [ ] Installer une transition entre les pages.
+- [x] Creer un formulaire sur plusieurs étapes, avec possibilité de revenir sur l'étape en cours.
+- [x] Installer une transition entre les pages.
 - [ ] Utiliser votre API avec des appels REST
 - [ ] Utiliser un environnement de test.
 - [x] Mise en production (avec CI/CD) sur votre VPS.

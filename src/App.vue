@@ -1,14 +1,35 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Navbar from './components/Navbar.vue'
+import { Transition } from 'vue'
 </script>
 
 <template>
   <Navbar />
-  <RouterView />
+  <RouterView v-slot="{ Component, route }">
+    <transition name="page-fade" mode="out-in">
+      <component :is="Component" :key="route.path" />
+    </transition>
+  </RouterView>
 </template>
 
 <style scoped>
+/* Page Transition CSS */
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 .logo {
   display: block;
   margin: 0 auto 2rem;

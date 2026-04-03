@@ -16,7 +16,7 @@ const results = ref([])
 
 const loadResults = () => {
   const saved = localStorage.getItem('form_results')
-  results.value = saved ? JSON.parse(saved).reverse() : [] // Inversé pour voir le plus récent en premier
+  results.value = saved ? JSON.parse(saved).reverse() : []
 }
 
 const clearResults = () => {
