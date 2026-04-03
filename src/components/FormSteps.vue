@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
-
+import { useRouter } from 'vue-router'
+import submissionService from '@/api/services/todoService'
 import FormStep from './FormStep.vue'
 
 import { Button } from '@/components/ui/button'
@@ -21,39 +22,36 @@ import {
 } from '@/components/ui/stepper'
 import { User, Mail, Check, ArrowRight, ArrowLeft } from 'lucide-vue-next'
 
-import { useRouter } from 'vue-router'
-
 const router = useRouter()
 const stepIndex = ref(1)
+const isSubmitting = ref(false)
 
 const formData = reactive({
-  username: '',
-  fullname: '',
-  email: '',
-  website: ''
+  title: '',
+  description: '',
+  responsable: ''
 })
 
 const steps = [
   { 
     step: 1, 
-    title: 'Profil Utilisateur', 
+    title: 'Titre du ticket', 
     icon: User, 
     description: 'Vos informations de base',
     type: 'form',
     fields: [
-      { id: 'username', label: "Nom d'utilisateur", placeholder: 'ex: jsmith', type: 'text' },
-      { id: 'fullname', label: "Nom complet", placeholder: 'John Smith', type: 'text' }
+      { id: 'title', label: "Titre du ticket", placeholder: 'Titre du ticket...', type: 'text' },
+      { id: 'responsable', label: "Responsable", placeholder: 'John Smith', type: 'text' }
     ]
   },
   { 
     step: 2, 
-    title: 'Contact & Réseaux', 
+    title: 'Description du ticket', 
     icon: Mail, 
-    description: 'Comment vous joindre',
+    description: 'Description du ticket',
     type: 'form',
     fields: [
-      { id: 'email', label: "Adresse Email professionnel", placeholder: 'john@company.com', type: 'email' },
-      { id: 'website', label: "Site web / Portfolio", placeholder: 'https://...', type: 'url' }
+      { id: 'description', label: "Description", placeholder: 'Description du ticket...', type: 'textarea' },
     ]
   },
   { 
@@ -63,9 +61,9 @@ const steps = [
     description: 'Vérification finale',
     type: 'summary',
     items: [
-      { label: "Utilisateur", getValue: (data) => `${data.username} (${data.fullname})` },
-      { label: "Contact", getValue: (data) => data.email },
-      { label: "Lien", getValue: (data) => data.website }
+      { label: "Titre", getValue: (data) => `${data.title}` },
+      { label: "Responsable", getValue: (data) => data.responsable },
+      { label: "Description", getValue: (data) => data.description }
     ]
   },
 ]
@@ -78,20 +76,16 @@ const prevStep = () => {
   if (stepIndex.value > 1) stepIndex.value--
 }
 
-const onSubmit = () => {
-  saveToLocalStorage()
-  router.push('/results')
-}
-
-const saveToLocalStorage = () => {
-  const existingSubmissions = JSON.parse(localStorage.getItem('form_results') || '[]')
-  const newSubmission = {
-    ...formData,
-    id: Date.now(),
-    date: new Date().toLocaleString('fr-FR')
+const onSubmit = async () => {
+  isSubmitting.value = true
+  try {
+    await submissionService.submitForm({ ...formData })
+    router.push('/results')
+  } catch (error) {
+    console.error("Erreur lors de l'envoi :", error)
+  } finally {
+    isSubmitting.value = false
   }
-  existingSubmissions.push(newSubmission)
-  localStorage.setItem('form_results', JSON.stringify(existingSubmissions))
 }
 </script>
 

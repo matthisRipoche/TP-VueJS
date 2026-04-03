@@ -8,28 +8,35 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { User, Mail, Globe, Trash2, ArrowLeft } from 'lucide-vue-next'
+import { User, MessageSquare, Trash2, ArrowLeft, Loader2 } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import submissionService from '@/api/services/todoService'
 
 const router = useRouter()
 const results = ref([])
+const isLoading = ref(true)
 
-const loadResults = () => {
-  const saved = localStorage.getItem('form_results')
-  results.value = saved ? JSON.parse(saved).reverse() : []
-}
-
-const clearResults = () => {
-  if (confirm('Voulez-vous vraiment supprimer toutes les réponses ?')) {
-    localStorage.removeItem('form_results')
-    loadResults()
+const loadResults = async () => {
+  isLoading.value = true
+  try {
+    results.value = await submissionService.getAllTodos()
+  } catch (error) {
+    console.error("Erreur de chargement :", error)
+  } finally {
+    isLoading.value = false
   }
 }
 
-const deleteItem = (id) => {
-  const updated = results.value.filter(item => item.id !== id)
-  localStorage.setItem('form_results', JSON.stringify(updated.reverse()))
-  loadResults()
+const clearResults = async () => {
+  if (confirm('Voulez-vous vraiment supprimer toutes les réponses ?')) {
+    await submissionService.clearAllSubmissions()
+    await loadResults()
+  }
+}
+
+const deleteItem = async (id) => {
+  await submissionService.deleteSubmission(id)
+  await loadResults()
 }
 
 onMounted(() => {
@@ -42,7 +49,7 @@ onMounted(() => {
     <div class="flex items-center justify-between">
       <div class="space-y-1">
         <h1 class="text-4xl font-black uppercase tracking-tighter">Résultats du Formulaire</h1>
-        <p class="text-muted-foreground text-lg">Liste de toutes les soumissions enregistrées localement.</p>
+        <p class="text-muted-foreground text-lg">Liste de toutes les soumissions (via API Service).</p>
       </div>
       <div class="flex gap-4">
         <Button variant="outline" @click="router.push('/form')" class="border-2 font-bold">
@@ -56,7 +63,12 @@ onMounted(() => {
       </div>
     </div>
 
-    <div v-if="results.length === 0" class="flex flex-col items-center justify-center py-20 border-4 border-dashed rounded-xl">
+    <div v-if="isLoading" class="flex flex-col items-center justify-center py-20">
+      <Loader2 class="size-12 animate-spin text-muted-foreground" />
+      <p class="mt-4 font-bold text-muted-foreground uppercase tracking-widest">Chargement...</p>
+    </div>
+
+    <div v-else-if="results.length === 0" class="flex flex-col items-center justify-center py-20 border-4 border-dashed rounded-xl">
       <p class="text-xl font-bold text-muted-foreground">Aucun résultat trouvé.</p>
       <Button variant="link" @click="router.push('/form')" class="mt-2 text-black font-bold">
         Remplir le formulaire maintenant
@@ -76,26 +88,20 @@ onMounted(() => {
         
         <CardHeader>
           <div class="flex items-center justify-between">
-            <CardTitle class="text-xl font-bold tracking-tight">{{ item.fullname }}</CardTitle>
+            <CardTitle class="text-xl font-bold tracking-tight">{{ item.title }}</CardTitle>
             <span class="text-xs font-mono bg-muted px-2 py-1 rounded">{{ item.date }}</span>
           </div>
-          <CardDescription class="font-medium text-black">@{{ item.username }}</CardDescription>
+          <CardDescription class="font-medium text-black">Responsable : {{ item.responsable }}</CardDescription>
         </CardHeader>
         
         <CardContent class="grid gap-4">
-          <div class="flex items-center gap-3 text-sm">
-            <div class="size-8 rounded-full bg-muted flex items-center justify-center">
-              <Mail class="size-4" />
+          <div class="flex items-start gap-3 text-sm">
+            <div class="size-8 rounded-full bg-muted flex items-center justify-center shrink-0">
+              <MessageSquare class="size-4" />
             </div>
-            <span class="font-medium">{{ item.email }}</span>
-          </div>
-          <div class="flex items-center gap-3 text-sm">
-            <div class="size-8 rounded-full bg-muted flex items-center justify-center">
-              <Globe class="size-4" />
-            </div>
-            <a :href="item.website" target="_blank" class="font-medium underline hover:text-primary transition-colors">
-              {{ item.website }}
-            </a>
+            <p class="font-medium text-muted-foreground line-clamp-3">
+              {{ item.description }}
+            </p>
           </div>
         </CardContent>
       </Card>

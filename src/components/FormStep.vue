@@ -1,5 +1,6 @@
 <script setup>
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Check } from 'lucide-vue-next'
 
@@ -20,12 +21,20 @@ defineProps({
   <div v-if="config.type === 'form'" class="grid gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
     <div v-for="field in config.fields" :key="field.id" class="grid gap-3">
       <Label :for="field.id" class="text-lg font-bold">{{ field.label }}</Label>
-      <Input 
-        :id="field.id" 
+      <Textarea
+        v-if="field.type === 'textarea'"
+        :id="field.id"
+        v-model="formData[field.id]"
+        :placeholder="field.placeholder"
+        class="min-h-[150px] border-2 text-lg focus-visible:ring-0 focus-visible:border-black resize-none"
+      />
+      <Input
+        v-else
+        :id="field.id"
         :type="field.type || 'text'"
         v-model="formData[field.id]"
-        :placeholder="field.placeholder" 
-        class="h-14 border-2 text-lg focus-visible:ring-0 focus-visible:border-black" 
+        :placeholder="field.placeholder"
+        class="h-14 border-2 text-lg focus-visible:ring-0 focus-visible:border-black"
       />
     </div>
   </div>
