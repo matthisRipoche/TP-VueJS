@@ -60,18 +60,9 @@ npm run dev
 npm run test:unit
 ```
 
-### 4. Build et test de la PWA
-```bash
-npm run build
-npm run preview
-```
-
 ## 🐳 CI/CD et Déploiement
 
 J'ai mis en place un pipeline **GitHub Actions** qui :
 1. Installe les dépendances.
 2. Lance les tests unitaires automatiquement à chaque push.
 3. Si les tests passent, déploie l'app sur mon VPS via **Docker**.
-
----
-*Projet réalisé avec ❤️ en cours de développement web.*
